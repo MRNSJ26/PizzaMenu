@@ -73,29 +73,45 @@ function Header() {
 }
 
 function Menu() {
+  const pizzas = pizzaData;
+  const numPizzas = pizzas.length;
   return (
     <main className="menu">
       <div>
         <h2>Our Menu</h2>
-        <ul className="pizzas">
-          {pizzaData.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
-          ))}
-        </ul>
+
+        {numPizzas > 0 ? (
+          <>
+            <p>
+              Authin Italian cuisin. 6 creative dishes to choose from. All from
+              our stone oven, all organic, all delicious
+            </p>
+            <ul className="pizzas">
+              {pizzaData.map((pizza) => (
+                <Pizza pizzaObj={pizza} key={pizza.name} />
+              ))}
+            </ul>
+          </>
+        ) : (
+          <p>We are still working on the menu please come back later</p>
+        )}
       </div>
     </main>
   );
 }
 
-function Pizza(props) {
-  console.log(props);
+function Pizza({ pizzaObj }) {
+  // console.log(props);
+
+  if (pizzaObj.soldOut) return null;
+
   return (
     <li className="pizza">
-      <img src={props.pizzaObj.photoName} alt="spinaci pizza" />
+      <img src={pizzaObj.photoName} alt="spinaci pizza" />
       <div>
-        <h3>{props.pizzaObj.name}</h3>
-        <p>{props.pizzaObj.ingredients}</p>
-        <span>{props.pizzaObj.price}</span>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
+        <span>{pizzaObj.price}</span>
       </div>
     </li>
   );
@@ -108,10 +124,48 @@ function Footer() {
   const isOpen = hour >= openHour && hour <= closeHour;
   console.log(isOpen);
 
+  // //we can use if condition inside the function
+  // // problem with this approach is that the code will have a lot of duplication!! <footer> tag and class names..etc so it is better to use to conditioanlly render componenets and not parts of a JSX
+  // // CHECK Pizza COMPONENT  (sold out)
+
+  // if (!isOpen) {
+  //   return (
+  //     <footer className="footer">
+  //       <p>
+  //         We are happy to welcome you between {openHour}:00 and {closeHour}:00
+  //       </p>
+  //     </footer>
+  //   );
+  // } else {
+  //   return (
+  //     <footer className="footer">
+  //       <div className="order">
+  //         <p>We're currently open until{closeHour}:00 come and vist us</p>
+  //         <button className="btn">Order</button>
+  //       </div>
+  //     </footer>
+  //   );
+  // }
+
   return (
     <footer className="footer">
-      {new Date().toLocaleTimeString()} We're currently open{" "}
+      {isOpen ? (
+        <Order closeHour={closeHour} openHour={openHour} />
+      ) : (
+        <p>
+          We are happy to welcome you between {openHour}:00 and {closeHour}:00
+        </p>
+      )}
+      <button className="btn">Order</button>
     </footer>
+  );
+}
+
+function Order({ closeHour, openHour }) {
+  return (
+    <div className="order">
+      <p>We're currently open until{closeHour}:00 come and vist us</p>
+    </div>
   );
 }
 
