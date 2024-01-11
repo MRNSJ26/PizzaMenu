@@ -58,13 +58,6 @@ function App() {
 }
 
 function Header() {
-  //   const style = {
-  //     color: "red",
-  //     fontFamily: "sans-serif",
-  //     fontSize: "48px",
-  //     textTransform: "uppercase",
-  //   };
-
   return (
     <header className="header">
       <h1>Fast React Pizza Co.</h1>
@@ -101,23 +94,12 @@ function Menu() {
 }
 
 function Pizza({ pizzaObj }) {
-  // console.log(props);
-
-  // if (pizzaObj.soldOut) return null;
-
   return (
     <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : " "}`}>
       <img src={pizzaObj.photoName} alt="spinaci pizza" />
       <div>
         <h3>{pizzaObj.name}</h3>
         <p>{pizzaObj.ingredients}</p>
-        //ONE APPROACH THAT IS REPITATIVE
-        {/* {pizzaObj.soldOut ? (
-          <span>SOLD OUT</span>
-        ) : (
-          <span>{pizzaObj.price}</span>
-        )} */}
-        // SECOND APPROACH
         <span>{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price}</span>
       </div>
     </li>
@@ -129,31 +111,6 @@ function Footer() {
   const openHour = 12;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
-  console.log(isOpen);
-
-  // //we can use if condition inside the function
-  // // problem with this approach is that the code will have a lot of duplication!! <footer> tag and class names..etc so it is better to use to conditioanlly render componenets and not parts of a JSX
-  // // CHECK Pizza COMPONENT  (sold out)
-
-  // if (!isOpen) {
-  //   return (
-  //     <footer className="footer">
-  //       <p>
-  //         We are happy to welcome you between {openHour}:00 and {closeHour}:00
-  //       </p>
-  //     </footer>
-  //   );
-  // } else {
-  //   return (
-  //     <footer className="footer">
-  //       <div className="order">
-  //         <p>We're currently open until{closeHour}:00 come and vist us</p>
-  //         <button className="btn">Order</button>
-  //       </div>
-  //     </footer>
-  //   );
-  // }
-
   return (
     <footer className="footer">
       {isOpen ? (
