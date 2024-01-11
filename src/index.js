@@ -87,7 +87,7 @@ function Menu() {
               our stone oven, all organic, all delicious
             </p>
             <ul className="pizzas">
-              {pizzaData.map((pizza) => (
+              {pizzas.map((pizza) => (
                 <Pizza pizzaObj={pizza} key={pizza.name} />
               ))}
             </ul>
@@ -103,15 +103,22 @@ function Menu() {
 function Pizza({ pizzaObj }) {
   // console.log(props);
 
-  if (pizzaObj.soldOut) return null;
+  // if (pizzaObj.soldOut) return null;
 
   return (
-    <li className="pizza">
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : " "}`}>
       <img src={pizzaObj.photoName} alt="spinaci pizza" />
       <div>
         <h3>{pizzaObj.name}</h3>
         <p>{pizzaObj.ingredients}</p>
-        <span>{pizzaObj.price}</span>
+        //ONE APPROACH THAT IS REPITATIVE
+        {/* {pizzaObj.soldOut ? (
+          <span>SOLD OUT</span>
+        ) : (
+          <span>{pizzaObj.price}</span>
+        )} */}
+        // SECOND APPROACH
+        <span>{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price}</span>
       </div>
     </li>
   );
